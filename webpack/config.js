@@ -11,6 +11,7 @@ const plugins = [
     new VueLoaderPlugin(),
     new CleanWebpackPlugin({
         cleanStaleWebpackAssets: false,
+        cleanOnceBeforeBuildPatterns: ["zh_cn/*", "js/*"],
     }),
     new webpack.ProgressPlugin({
         handler(val, msg, module) {

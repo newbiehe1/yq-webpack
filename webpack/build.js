@@ -15,8 +15,6 @@ config = merge(config, {
 });
 
 webpack(config, (err, stats) => {
-    // console.log("##########################################################");
-    // console.log(state);
     console.log(
         stats.toString({
             chunks: false, // 使构建过程更静默无输出
