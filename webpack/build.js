@@ -12,6 +12,10 @@ config = merge(config, {
         publicPath: "./",
         path: path.resolve(__dirname, "../dist"),
     },
+    watch: true,
+    watchOptions: {
+        ignored: /node_modules/,
+    },
 });
 
 webpack(config, (err, stats) => {
