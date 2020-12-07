@@ -8,7 +8,7 @@
         "build": "node ./webpack/build.js"
     },
     "keywords": [],
-    "author": "",
+    "author": "word-visitor",
     "license": "ISC",
     "devDependencies": {
         "@babel/core": "^7.12.9",

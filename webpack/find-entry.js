@@ -17,6 +17,6 @@ const paths = [];
             }
         });
     }
-})(Path.join(__dirname, "../webapp/"));
+})(Path.join(__dirname, "../public/"));
 
 module.exports = paths;

@@ -18,7 +18,7 @@ const entryData = {
 function getVersion(path) {
     const paths = path.split("\\");
     const n = paths.findIndex((index) => {
-        return index === "webapp";
+        return index === "public";
     });
     return paths[n + 1];
 }
@@ -83,8 +83,10 @@ function createEntry(jsPath, jspPath) {
     try {
         fs.accessSync(path);
     } catch (err) {
-        fs.appendFile(path, "", () => {
-            console.log(path + "创建文件失败");
+        fs.appendFile(path, "", (res) => {
+            if (res) {
+                console.log(path + "创建文件失败");
+            }
         });
     }
     entryData.entry[jsPath] = path;

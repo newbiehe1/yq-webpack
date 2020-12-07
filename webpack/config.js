@@ -4,19 +4,17 @@ const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const webpack = require("webpack");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
 const jspPlugin = require("./multi-jsp.js");
 
 const plugins = [
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin({
-        cleanStaleWebpackAssets: false,
-        cleanOnceBeforeBuildPatterns: ["zh_cn/*", "js/*"],
-    }),
     new webpack.ProgressPlugin({
         handler(val, msg, module) {
             console.clear();
-            console.log(`${msg} ${(val * 100).toFixed(2)}% ${module}`);
+            console.log(
+                `${msg} ${(val * 100).toFixed(2)}% ${module ? module : ""}`
+            );
         },
     }),
     ...jspPlugin,
@@ -95,6 +93,10 @@ const rules = [
             },
         ],
     },
+    {
+        test: /\.jsp/,
+        use: "raw-loader",
+    },
 ];
 const resolve = {
     // mainFields: ["node_modules"],
@@ -124,6 +126,7 @@ const optimization = {
         }),
     ],
 };
+
 module.exports = {
     plugins: plugins,
     module: {
@@ -131,4 +134,9 @@ module.exports = {
     },
     resolve: resolve,
     optimization: optimization,
+    cache: false,
+    performance: {
+        maxEntrypointSize: 2097152,
+        maxAssetSize: 2097152,
+    },
 };

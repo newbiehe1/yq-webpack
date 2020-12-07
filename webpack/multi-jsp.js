@@ -1,12 +1,14 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const EnteryData = require("./create-entry.js");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+const EntryData = require("./create-entry.js");
 
 const JSPConfig = {
     // filename: "index.html",
     minify: false,
     meta: {
         viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
-        author: "world-vistor",
+        author: "word-visitor",
         "utf-8": { charset: "utf-8" },
         "X-UA-Compatible": {
             "http-equiv": "X-UA-Compatible",
@@ -17,26 +19,32 @@ const JSPConfig = {
             content: "no-cache",
         },
     },
-    // template: path.resolve(__dirname, "../public/index.html"),
 };
 
 let jspConfig = [];
-
-for (let key in EnteryData.entry) {
-    const arr = EnteryData.jspEntry[key].split("\\");
+let clearJsp = [];
+for (let key in EntryData.entry) {
+    const arr = EntryData.jspEntry[key].split("\\");
     const n = arr.findIndex((index) => {
-        return index === "webapp";
+        return index === "public";
     });
     arr.splice(0, n + 1);
-
     jspConfig.push(
         new HtmlWebpackPlugin(
             Object.assign({}, JSPConfig, {
                 filename: arr.join("/"),
-                template: EnteryData.jspEntry[key],
+                template: EntryData.jspEntry[key],
                 chunks: [key],
             })
         )
     );
+    clearJsp.push(arr.join("/"));
 }
+jspConfig.push(
+    new CleanWebpackPlugin({
+        cleanStaleWebpackAssets: false,
+        cleanOnceBeforeBuildPatterns: [...clearJsp, "js/*"], //指定删除文件夹
+    })
+);
+
 module.exports = jspConfig;
