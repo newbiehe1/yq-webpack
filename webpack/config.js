@@ -17,6 +17,10 @@ const plugins = [
             );
         },
     }),
+    new MiniCssExtractPlugin({
+        filename: "css/[name]-[chunkhash:5].css",
+        chunkFilename: "css/[id]-[chunkhash:5].css",
+    }),
     ...jspPlugin,
 ];
 const rules = [
@@ -30,7 +34,12 @@ const rules = [
                     fallback: {
                         loader: "file-loader",
                         options: {
+                            esModule: false,
                             name: "img/[name].[hash:5].[ext]",
+                            // outputPath: (url, resourcePath, context) => {
+                            //     console.log(url, resourcePath, context);
+                            //     return "../" + url;
+                            // },
                         },
                     },
                 },
@@ -42,14 +51,6 @@ const rules = [
         use: [
             {
                 loader: MiniCssExtractPlugin.loader,
-                options: {
-                    publicPath: (resourcePath, context) => {
-                        return (
-                            path.relative(path.dirname(resourcePath), context) +
-                            "/css/"
-                        );
-                    },
-                },
             },
             {
                 loader: "css-loader", // 将 CSS 转化成 CommonJS 模块
@@ -86,6 +87,7 @@ const rules = [
                     fallback: {
                         loader: "file-loader",
                         options: {
+                            esModule: false,
                             name: "fonts/[name].[hash:5].[ext]",
                         },
                     },
@@ -102,7 +104,7 @@ const resolve = {
     // mainFields: ["node_modules"],
     extensions: [".vue", ".js", ".json"],
     alias: {
-        "@": path.join(__dirname, "src"),
+        "@": path.join(__dirname, "src/"),
     },
 };
 

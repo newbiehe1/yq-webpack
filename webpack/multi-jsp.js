@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const Path = require("path");
 
 const EntryData = require("./create-entry.js");
 
@@ -8,7 +9,7 @@ const JSPConfig = {
     minify: false,
     meta: {
         viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
-        author: "word-visitor",
+        author: "何雪杰",
         "utf-8": { charset: "utf-8" },
         "X-UA-Compatible": {
             "http-equiv": "X-UA-Compatible",
@@ -19,6 +20,7 @@ const JSPConfig = {
             content: "no-cache",
         },
     },
+    publicPath: "<%=basePath%>assets",
 };
 
 let jspConfig = [];
@@ -32,7 +34,7 @@ for (let key in EntryData.entry) {
     jspConfig.push(
         new HtmlWebpackPlugin(
             Object.assign({}, JSPConfig, {
-                filename: arr.join("/"),
+                filename: "../" + arr.join("/"),
                 template: EntryData.jspEntry[key],
                 chunks: [key],
             })
@@ -43,7 +45,10 @@ for (let key in EntryData.entry) {
 jspConfig.push(
     new CleanWebpackPlugin({
         cleanStaleWebpackAssets: false,
-        cleanOnceBeforeBuildPatterns: [...clearJsp, "js/*"], //指定删除文件夹
+        cleanOnceBeforeBuildPatterns: [
+            ...clearJsp,
+            Path.join(__dirname, "../webapp/assets/**"),
+        ], //指定删除文件夹
     })
 );
 

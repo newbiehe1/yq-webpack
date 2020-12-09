@@ -89,8 +89,11 @@ function createEntry(jsPath, jspPath) {
             }
         });
     }
-    entryData.entry[jsPath] = path;
-    entryData.jspEntry[jsPath] = jspPath;
+    entryData.entry[name] = [
+        Path.join(__dirname, "../src/entry/pro-env.js"),
+        path,
+    ];
+    entryData.jspEntry[name] = jspPath;
 }
 
 module.exports = {

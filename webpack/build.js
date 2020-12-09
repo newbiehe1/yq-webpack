@@ -5,12 +5,12 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 config = merge(config, {
     mode: "production",
-    devtool: "eval-cheap-source-map",
+    devtool: "nosources-source-map",
     entry: entryData.entry,
     output: {
         filename: "js/[name]-[chunkhash:5].js",
-        publicPath: "./",
-        path: path.resolve(__dirname, "../webapp"),
+        publicPath: "../../",
+        path: path.resolve(__dirname, "../webapp/assets/"),
     },
     // watch: true,
     // watchOptions: {
