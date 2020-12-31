@@ -91,6 +91,7 @@ function createEntry(jsPath, jspPath) {
     }
     entryData.entry[name] = [
         Path.join(__dirname, "../src/entry/pro-env.js"),
+        "@babel/polyfill",
         path,
     ];
     entryData.jspEntry[name] = jspPath;

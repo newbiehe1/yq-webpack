@@ -81,7 +81,8 @@ const rules = [
                         loader: "file-loader",
                         options: {
                             esModule: false,
-                            name: "fonts/[name].[hash:5].[ext]",
+                            // .[hash:5]
+                            name: "fonts/[name].[ext]",
                         },
                     },
                 },
@@ -115,7 +116,7 @@ const optimization = {
             extractComments: false,
             terserOptions: {
                 compress: {
-                    drop_console: true,
+                    // drop_console: true,
                 },
             },
         }),
