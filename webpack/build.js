@@ -5,7 +5,7 @@ const path = require("path");
 const { merge } = require("webpack-merge");
 config = merge(config, {
     mode: "production",
-    // devtool: "source-map", //仅个人测试是打开
+    devtool: false, //仅个人测试是打开
     entry: entryData.entry,
     output: {
         filename: "js/[name]-[chunkhash:5].js",

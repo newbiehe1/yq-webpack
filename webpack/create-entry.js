@@ -1,6 +1,15 @@
 const Path = require("path");
-const JSPS = require("./find-entry.js");
+let JSPS = require("./find-entry.js");
 const fs = require("fs");
+
+JSPS = JSPS.filter((index) => {
+    // 剔除文件  .后的拓展名
+    const included = ["ico"];
+    const paths = index.split("\\");
+    const extended = paths[paths.length - 1].split(".")[1];
+
+    return !included.some((item) => item === extended);
+});
 
 const entryData = {
     entry: {},
@@ -20,7 +29,7 @@ function getVersion(path) {
     const n = paths.findIndex((index) => {
         return index === "public";
     });
-    return paths[n + 1];
+    return /\./g.test(paths[n + 1]) ? "" : paths[n + 1];
 }
 
 // 获取路径中的文件名称(非文件夹)
@@ -64,7 +73,7 @@ JSPS.forEach((index) => {
             name = name.replace(reg, regAfterVal);
         });
     }
-    createEntry(version + "/" + name, index);
+    createEntry(version ? version + "/" + name : name, index);
 });
 
 // 创建入口

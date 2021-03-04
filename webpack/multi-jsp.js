@@ -6,10 +6,24 @@ const EntryData = require("./create-entry.js");
 
 const JSPConfig = {
     // filename: "index.html",
-    minify: false,
+    minify: {
+        collapseWhitespace: true,
+        keepClosingSlash: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+        minifyJS(text) {
+            text = text.replace(/(\/\/){1}.+(\n){1}/g, "");
+            text = text.replace(/(<!--){1}(.|\n)+(-->){1}/g, "");
+            return text;
+        },
+    },
+    // favicon: Path.join(__dirname, "../public/favicon.ico"),
     meta: {
         viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
-        author: "何雪杰",
+        author: "Human visitors",
         "utf-8": { charset: "utf-8" },
         "X-UA-Compatible": {
             "http-equiv": "X-UA-Compatible",

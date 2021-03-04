@@ -19,3 +19,6 @@ webpack 配置文件
 配置文件
 
 勿删
+# node v12.17
+# npm i
+# npm run build

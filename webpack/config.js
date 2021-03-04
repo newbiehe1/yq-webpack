@@ -60,7 +60,10 @@ const rules = [
     },
     {
         test: /\.m?js$/,
-        exclude: (file) => /node_modules/.test(file) && !/\.vue\.js/.test(file),
+        exclude: (file) =>
+            /node_modules/.test(file) &&
+            !/(\.)?vue(\.js)?/.test(file) &&
+            !/echarts/.test(file),
         use: {
             loader: "babel-loader",
         },

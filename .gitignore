@@ -1,2 +1,8 @@
 node_modules
-dist
+public
+resources
+src
+webapp
+.vscode
+java
+*.rar
